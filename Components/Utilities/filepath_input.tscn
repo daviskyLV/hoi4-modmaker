@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://whlv3g6jfnog"]
 
-[ext_resource type="Script" path="res://Components/Utilities/filepath_input.gd" id="1_8oftu"]
+[ext_resource type="Script" uid="uid://dsov2vd0qjmpg" path="res://Components/Utilities/filepath_input.gd" id="1_8oftu"]
 
 [node name="FilepathInput" type="LineEdit"]
 size_flags_horizontal = 3

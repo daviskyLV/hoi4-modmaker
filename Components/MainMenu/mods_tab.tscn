@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://dnjvhcklikkdq" path="res://Themes/ButtonBlue.tres" id="1_ne4ch"]
 [ext_resource type="Theme" uid="uid://dhta4mqlq1sfc" path="res://Themes/ModSelectionButtonTheme.tres" id="2_mrnp3"]
-[ext_resource type="Script" path="res://Components/MainMenu/mods_tab.gd" id="2_nw7a7"]
-[ext_resource type="Script" path="res://Components/MainMenu/Mods/modlist_v_box.gd" id="3_uvmyu"]
-[ext_resource type="Script" path="res://Components/MainMenu/Mods/new_mod.gd" id="4_ng7sv"]
+[ext_resource type="Script" uid="uid://ddpeftx3jeobu" path="res://Components/MainMenu/mods_tab.gd" id="2_nw7a7"]
+[ext_resource type="Script" uid="uid://cq0dy7f24taid" path="res://Components/MainMenu/Mods/modlist_v_box.gd" id="3_uvmyu"]
+[ext_resource type="Script" uid="uid://b464vcjm3k80y" path="res://Components/MainMenu/Mods/new_mod.gd" id="4_ng7sv"]
 [ext_resource type="PackedScene" uid="uid://ba7nlpur8j25q" path="res://Components/MainMenu/Mods/mod_entry.tscn" id="4_vafkj"]
 [ext_resource type="Theme" uid="uid://cq5fse5ndgcg2" path="res://Themes/GodotTheme.tres" id="5_trh5v"]
 

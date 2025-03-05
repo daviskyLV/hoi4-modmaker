@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b7q2g1etdpo3x" path="res://FolderIcon64x48.png" id="1_2mkwi"]
 [ext_resource type="Theme" uid="uid://ps3t0pelfm8k" path="res://Themes/ButtonInvisible.tres" id="2_nh0sp"]
-[ext_resource type="Script" path="res://Components/Utilities/open_dir_button.gd" id="3_5ih1i"]
+[ext_resource type="Script" uid="uid://bi4c8p4r0prn0" path="res://Components/Utilities/open_dir_button.gd" id="3_5ih1i"]
 
 [node name="Thumbnail" type="TextureRect"]
 mouse_filter = 2
