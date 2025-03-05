@@ -1,0 +1,309 @@
+[gd_scene load_steps=10 format=3 uid="uid://3dbs75m707i2"]
+
+[ext_resource type="Theme" uid="uid://dnjvhcklikkdq" path="res://Themes/ButtonBlue.tres" id="1_ne4ch"]
+[ext_resource type="Theme" uid="uid://dhta4mqlq1sfc" path="res://Themes/ModSelectionButtonTheme.tres" id="2_mrnp3"]
+[ext_resource type="Script" path="res://Components/MainMenu/mods_tab.gd" id="2_nw7a7"]
+[ext_resource type="Script" path="res://Components/MainMenu/Mods/modlist_v_box.gd" id="3_uvmyu"]
+[ext_resource type="Script" path="res://Components/MainMenu/Mods/new_mod.gd" id="4_ng7sv"]
+[ext_resource type="PackedScene" uid="uid://ba7nlpur8j25q" path="res://Components/MainMenu/Mods/mod_entry.tscn" id="4_vafkj"]
+[ext_resource type="Theme" uid="uid://cq5fse5ndgcg2" path="res://Themes/GodotTheme.tres" id="5_trh5v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ddoa8"]
+font_size = 20
+font_color = Color(0.443137, 0.737255, 0.988235, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kphdy"]
+font_size = 17
+
+[node name="Mods" type="MarginContainer"]
+theme = ExtResource("5_trh5v")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("2_nw7a7")
+metadata/_tab_index = 0
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TopbarHBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Searchbox" type="LineEdit" parent="VBox/TopbarHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search"
+clear_button_enabled = true
+
+[node name="NewMod" type="Button" parent="VBox/TopbarHBox" node_paths=PackedStringArray("topmost_parent")]
+layout_mode = 2
+theme = ExtResource("1_ne4ch")
+theme_override_font_sizes/font_size = 20
+text = "New Mod"
+script = ExtResource("4_ng7sv")
+topmost_parent = NodePath("../../..")
+
+[node name="HSplit" type="HSplitContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Modlist" type="ScrollContainer" parent="VBox/HSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="ModlistVBox" type="VBoxContainer" parent="VBox/HSplit/Modlist"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_mrnp3")
+theme_override_constants/separation = 5
+script = ExtResource("3_uvmyu")
+
+[node name="Mod" parent="VBox/HSplit/Modlist/ModlistVBox" instance=ExtResource("4_vafkj")]
+layout_mode = 2
+
+[node name="FiltersVBox" type="VBoxContainer" parent="VBox/HSplit"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Filters:"
+label_settings = SubResource("LabelSettings_ddoa8")
+
+[node name="FilterScroll" type="ScrollContainer" parent="VBox/HSplit/FiltersVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="GameVersionHBox" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/GameVersionHBox"]
+layout_mode = 2
+text = "Game version:"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="GameVerInput" type="LineEdit" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/GameVersionHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Filter using semantic versioning"
+theme = ExtResource("5_trh5v")
+theme_override_font_sizes/font_size = 17
+placeholder_text = "1.15.*"
+
+[node name="ModVersion" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/ModVersion"]
+layout_mode = 2
+text = "Mod version:"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="ModVerInput" type="LineEdit" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/ModVersion"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Filter using semantic versioning"
+theme = ExtResource("5_trh5v")
+theme_override_font_sizes/font_size = 17
+placeholder_text = "1.0"
+
+[node name="HSeparator" type="HSeparator" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="TagAltHist" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="AltHistInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagAltHist"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagAltHist"]
+layout_mode = 2
+text = "Alternative History"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagBalance" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="BalanceInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagBalance"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagBalance"]
+layout_mode = 2
+text = "Balance"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagEvents" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="EventsInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagEvents"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagEvents"]
+layout_mode = 2
+text = "Events"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagFixes" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="FixesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagFixes"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagFixes"]
+layout_mode = 2
+text = "Fixes"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagGameplay" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="GameplayInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagGameplay"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagGameplay"]
+layout_mode = 2
+text = "Gameplay"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagGraphics" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="GraphicsInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagGraphics"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagGraphics"]
+layout_mode = 2
+text = "Graphics"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagHistorical" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="HistoricalInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagHistorical"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagHistorical"]
+layout_mode = 2
+text = "Historical"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagIdeologies" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="IdeologiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagIdeologies"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagIdeologies"]
+layout_mode = 2
+text = "Ideology"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagMap" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="MapInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagMap"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagMap"]
+layout_mode = 2
+text = "Map"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagMilitary" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="MilitaryInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagMilitary"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagMilitary"]
+layout_mode = 2
+text = "Military"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagNatFoc" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="NatFocInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagNatFoc"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagNatFoc"]
+layout_mode = 2
+text = "National Focuses"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagSound" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="SoundInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagSound"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagSound"]
+layout_mode = 2
+text = "Sound"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagTechnologies" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="TechnologiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagTechnologies"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagTechnologies"]
+layout_mode = 2
+text = "Technology"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagTranslation" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="TranslationInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagTranslation"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagTranslation"]
+layout_mode = 2
+text = "Translation"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[node name="TagUtilities" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
+layout_mode = 2
+
+[node name="UtilitiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagUtilities"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagUtilities"]
+layout_mode = 2
+text = "Utilities"
+label_settings = SubResource("LabelSettings_kphdy")
+
+[connection signal="pressed" from="VBox/TopbarHBox/NewMod" to="VBox/TopbarHBox/NewMod" method="_on_pressed"]

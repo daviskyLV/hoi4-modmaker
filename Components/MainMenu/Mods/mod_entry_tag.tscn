@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjd1bge7uu8v6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kphdy"]
+
+[node name="Tag" type="Label"]
+text = "Alternative History"
+label_settings = SubResource("LabelSettings_kphdy")

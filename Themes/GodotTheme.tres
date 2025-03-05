@@ -1,0 +1,67 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://cq5fse5ndgcg2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qj5ju"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8fugv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqwt3"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.129412, 0.14902, 0.180392, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5bn20"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.160784, 0.176471, 0.2, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sllok"]
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhe78"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.162, 0.1772, 0.2, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u6n3r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hykv"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.1704, 0.19824, 0.24, 1)
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0pb2f"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+border_width_top = 3
+border_color = Color(0.356863, 0.580392, 0.772549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgo5o"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.145098, 0.168627, 0.203922, 1)
+
+[resource]
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_qj5ju")
+LineEdit/colors/selection_color = Color(0.215686, 0.309804, 0.4, 1)
+LineEdit/font_sizes/font_size = 20
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_8fugv")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_oqwt3")
+LineEdit/styles/read_only = SubResource("StyleBoxFlat_5bn20")
+TabContainer/constants/side_margin = 0
+TabContainer/font_sizes/font_size = 20
+TabContainer/styles/panel = SubResource("StyleBoxFlat_sllok")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_nhe78")
+TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_u6n3r")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_7hykv")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_0pb2f")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_fgo5o")

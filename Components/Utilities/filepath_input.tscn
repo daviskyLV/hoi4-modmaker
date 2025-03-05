@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://whlv3g6jfnog"]
+
+[ext_resource type="Script" path="res://Components/Utilities/filepath_input.gd" id="1_8oftu"]
+
+[node name="FilepathInput" type="LineEdit"]
+size_flags_horizontal = 3
+tooltip_text = "Where game is installed, eg. game's Steam path"
+theme_override_font_sizes/font_size = 16
+script = ExtResource("1_8oftu")
+
+[connection signal="text_changed" from="." to="." method="_on_text_changed"]

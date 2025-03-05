@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://qv8wla1jytsa"]
+
+[ext_resource type="Script" path="res://Scenes/MainMenu/Settings/filepaths.gd" id="1_m0y0s"]
+[ext_resource type="PackedScene" uid="uid://whlv3g6jfnog" path="res://Components/Utilities/filepath_input.tscn" id="2_ur7mm"]
+[ext_resource type="PackedScene" uid="uid://b4aoc3osu774y" path="res://Components/Utilities/open_folder_button.tscn" id="3_hox5t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iv31n"]
+font_size = 20
+font_color = Color(0.443137, 0.737255, 0.988235, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2xxpv"]
+
+[node name="Settings" type="MarginContainer"]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 1
+
+[node name="SettingsList" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="SettingsList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Filepaths" type="VBoxContainer" parent="SettingsList/VBox" node_paths=PackedStringArray("user_dir_input", "game_dir_input")]
+layout_mode = 2
+theme_override_constants/separation = 3
+script = ExtResource("1_m0y0s")
+user_dir_input = NodePath("UserDirHBox/UserDirInput")
+game_dir_input = NodePath("GameDirHBox/GameDirInput")
+
+[node name="Title" type="Label" parent="SettingsList/VBox/Filepaths"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Filepaths"
+label_settings = SubResource("LabelSettings_iv31n")
+text_direction = 1
+
+[node name="UserDirHBox" type="HBoxContainer" parent="SettingsList/VBox/Filepaths"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SettingsList/VBox/Filepaths/UserDirHBox"]
+layout_mode = 2
+tooltip_text = "Where game's user's configuration is stored"
+mouse_filter = 1
+text = "User configuration directory:"
+label_settings = SubResource("LabelSettings_2xxpv")
+
+[node name="UserDirInput" parent="SettingsList/VBox/Filepaths/UserDirHBox" instance=ExtResource("2_ur7mm")]
+layout_mode = 2
+
+[node name="FolderMargin" type="MarginContainer" parent="SettingsList/VBox/Filepaths/UserDirHBox"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Thumbnail" parent="SettingsList/VBox/Filepaths/UserDirHBox/FolderMargin" node_paths=PackedStringArray("line_edit_folder") instance=ExtResource("3_hox5t")]
+layout_mode = 2
+line_edit_folder = NodePath("../../UserDirInput")
+open_as_selection = true
+
+[node name="GameDirHBox" type="HBoxContainer" parent="SettingsList/VBox/Filepaths"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SettingsList/VBox/Filepaths/GameDirHBox"]
+layout_mode = 2
+tooltip_text = "Where game is installed, eg. game's Steam path"
+mouse_filter = 1
+text = "Game installation directory:"
+label_settings = SubResource("LabelSettings_2xxpv")
+
+[node name="GameDirInput" parent="SettingsList/VBox/Filepaths/GameDirHBox" instance=ExtResource("2_ur7mm")]
+layout_mode = 2
+
+[node name="FolderMargin" type="MarginContainer" parent="SettingsList/VBox/Filepaths/GameDirHBox"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Thumbnail" parent="SettingsList/VBox/Filepaths/GameDirHBox/FolderMargin" node_paths=PackedStringArray("line_edit_folder") instance=ExtResource("3_hox5t")]
+layout_mode = 2
+line_edit_folder = NodePath("../../GameDirInput")
+open_as_selection = true

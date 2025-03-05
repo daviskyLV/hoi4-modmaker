@@ -1,0 +1,446 @@
+[gd_scene load_steps=15 format=3 uid="uid://c1bhljvqarkg5"]
+
+[ext_resource type="Theme" uid="uid://cq5fse5ndgcg2" path="res://Themes/GodotTheme.tres" id="1_lmln7"]
+[ext_resource type="Script" path="res://Scenes/create_mod.gd" id="2_ogke3"]
+[ext_resource type="Script" path="res://Components/CreateMod/path_input.gd" id="3_l1gkl"]
+[ext_resource type="Script" path="res://Components/Utilities/filepath_input.gd" id="4_8gn4s"]
+[ext_resource type="Theme" uid="uid://ps3t0pelfm8k" path="res://Themes/ButtonInvisible.tres" id="5_3yykg"]
+[ext_resource type="Theme" uid="uid://dnjvhcklikkdq" path="res://Themes/ButtonBlue.tres" id="5_40g8y"]
+[ext_resource type="Script" path="res://Components/CreateMod/thumbnail_selector.gd" id="5_j7v3b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_36xm1"]
+font_size = 24
+font_color = Color(0.443137, 0.737255, 0.988235, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pjmr6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_owk1y"]
+font_size = 14
+font_color = Color(1, 0, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fwhq"]
+bg_color = Color(0.129412, 0.14902, 0.180392, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_sgcqw"]
+font_color = Color(0.443137, 0.737255, 0.988235, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_unlcp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r44bj"]
+
+[node name="CreateMod" type="Window"]
+disable_3d = true
+title = "Create a new Mod"
+initial_position = 1
+size = Vector2i(350, 500)
+keep_title_visible = true
+theme = ExtResource("1_lmln7")
+script = ExtResource("2_ogke3")
+
+[node name="Node" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lmln7")
+
+[node name="BackgroundColor" type="ColorRect" parent="Node"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="Margin" type="MarginContainer" parent="Node"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Node/Margin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox"]
+layout_mode = 2
+text = "Create a new mod"
+label_settings = SubResource("LabelSettings_36xm1")
+horizontal_alignment = 1
+
+[node name="NameHBox" type="HBoxContainer" parent="Node/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/NameHBox"]
+layout_mode = 2
+text = "Name:"
+label_settings = SubResource("LabelSettings_pjmr6")
+
+[node name="NameInput" type="LineEdit" parent="Node/Margin/VBox/NameHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+placeholder_text = "My mod"
+
+[node name="PathHBox" type="HBoxContainer" parent="Node/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/PathHBox"]
+layout_mode = 2
+text = "Path:"
+label_settings = SubResource("LabelSettings_pjmr6")
+
+[node name="PathInput" type="LineEdit" parent="Node/Margin/VBox/PathHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Mod's folder path local to user"
+theme_override_font_sizes/font_size = 16
+text = "mod/"
+placeholder_text = "mod/"
+script = ExtResource("3_l1gkl")
+
+[node name="GameVerHBox" type="HBoxContainer" parent="Node/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/GameVerHBox"]
+layout_mode = 2
+tooltip_text = "Game version the mod supports"
+mouse_filter = 1
+text = "Game version:"
+label_settings = SubResource("LabelSettings_pjmr6")
+
+[node name="GameVerInput" type="LineEdit" parent="Node/Margin/VBox/GameVerHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Game version the mod supports"
+theme_override_font_sizes/font_size = 16
+text = "1.15.*"
+placeholder_text = "1.15.*"
+
+[node name="ModVerHBox" type="HBoxContainer" parent="Node/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/ModVerHBox"]
+layout_mode = 2
+tooltip_text = "Mod's initial version"
+mouse_filter = 1
+text = "Mod version:"
+label_settings = SubResource("LabelSettings_pjmr6")
+
+[node name="ModVerInput" type="LineEdit" parent="Node/Margin/VBox/ModVerHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Mod's initial version"
+theme_override_font_sizes/font_size = 16
+text = "1.0.0"
+placeholder_text = "1.0.0"
+
+[node name="ThumbnailHBox" type="HBoxContainer" parent="Node/Margin/VBox"]
+custom_minimum_size = Vector2(0, 97)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DetailsVBox" type="VBoxContainer" parent="Node/Margin/VBox/ThumbnailHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/ThumbnailHBox/DetailsVBox"]
+layout_mode = 2
+text = "Thumbnail:"
+label_settings = SubResource("LabelSettings_pjmr6")
+
+[node name="ThumbnailPath" type="LineEdit" parent="Node/Margin/VBox/ThumbnailHBox/DetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Thumbnail's path"
+theme_override_font_sizes/font_size = 16
+placeholder_text = "Thumbnail path"
+clear_button_enabled = true
+script = ExtResource("4_8gn4s")
+
+[node name="Warning" type="Label" parent="Node/Margin/VBox/ThumbnailHBox/DetailsVBox"]
+layout_mode = 2
+text = "Max size can be 1MB!"
+label_settings = SubResource("LabelSettings_owk1y")
+
+[node name="Margin" type="MarginContainer" parent="Node/Margin/VBox/ThumbnailHBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ThumbnailBG" type="Panel" parent="Node/Margin/VBox/ThumbnailHBox/Margin"]
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0fwhq")
+
+[node name="Selector" type="Button" parent="Node/Margin/VBox/ThumbnailHBox/Margin/ThumbnailBG" node_paths=PackedStringArray("thumbnail", "path_input", "topmost_parent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Select thumbnail via file picker"
+theme = ExtResource("5_3yykg")
+theme_type_variation = &"FlatButton"
+script = ExtResource("5_j7v3b")
+thumbnail = NodePath("../Thumbnail")
+path_input = NodePath("../../../DetailsVBox/ThumbnailPath")
+topmost_parent = NodePath("../../../../../..")
+
+[node name="Thumbnail" type="TextureRect" parent="Node/Margin/VBox/ThumbnailHBox/Margin/ThumbnailBG"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TagsVBox" type="VBoxContainer" parent="Node/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 1
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Tags (max 10):"
+label_settings = SubResource("LabelSettings_sgcqw")
+
+[node name="TagScroll" type="ScrollContainer" parent="Node/Margin/VBox/TagsVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Grid" type="GridContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="TagAltHist" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="AltHistInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagAltHist"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagAltHist"]
+layout_mode = 2
+text = "Alternative History"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagBalance" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="BalanceInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagBalance"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagBalance"]
+layout_mode = 2
+text = "Balance"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagEvents" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="EventsInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagEvents"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagEvents"]
+layout_mode = 2
+text = "Events"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagFixes" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="FixesInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagFixes"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagFixes"]
+layout_mode = 2
+text = "Fixes"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagGameplay" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="GameplayInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagGameplay"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagGameplay"]
+layout_mode = 2
+text = "Gameplay"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagGraphics" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="GraphicsInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagGraphics"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagGraphics"]
+layout_mode = 2
+text = "Graphics"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagHistorical" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="HistoricalInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagHistorical"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagHistorical"]
+layout_mode = 2
+text = "Historical"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagIdeologies" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="IdeologiesInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagIdeologies"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagIdeologies"]
+layout_mode = 2
+text = "Ideology"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagMap" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="MapInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagMap"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagMap"]
+layout_mode = 2
+text = "Map"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagMilitary" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="MilitaryInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagMilitary"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagMilitary"]
+layout_mode = 2
+text = "Military"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagNatFoc" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="NatFocInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagNatFoc"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagNatFoc"]
+layout_mode = 2
+text = "National Focuses"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagSound" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="SoundInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagSound"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagSound"]
+layout_mode = 2
+text = "Sound"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagTechnologies" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="TechnologiesInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagTechnologies"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagTechnologies"]
+layout_mode = 2
+text = "Technology"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagTranslation" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="TranslationInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagTranslation"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagTranslation"]
+layout_mode = 2
+text = "Translation"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="TagUtilities" type="HBoxContainer" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid"]
+layout_mode = 2
+
+[node name="UtilitiesInput" type="CheckBox" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagUtilities"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/Margin/VBox/TagsVBox/TagScroll/Grid/TagUtilities"]
+layout_mode = 2
+text = "Utilities"
+label_settings = SubResource("LabelSettings_unlcp")
+
+[node name="HSeparator" type="HSeparator" parent="Node/Margin/VBox/TagsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxEmpty_r44bj")
+
+[node name="Create" type="Button" parent="Node/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_40g8y")
+disabled = true
+text = "Create Mod"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="text_changed" from="Node/Margin/VBox/NameHBox/NameInput" to="." method="_on_name_input_text_changed"]
+[connection signal="text_changed" from="Node/Margin/VBox/PathHBox/PathInput" to="Node/Margin/VBox/PathHBox/PathInput" method="_on_text_changed"]
+[connection signal="text_validated" from="Node/Margin/VBox/PathHBox/PathInput" to="." method="_on_path_input_text_validated"]
+[connection signal="text_changed" from="Node/Margin/VBox/ThumbnailHBox/DetailsVBox/ThumbnailPath" to="." method="_on_thumbnail_path_text_changed"]
+[connection signal="text_changed" from="Node/Margin/VBox/ThumbnailHBox/DetailsVBox/ThumbnailPath" to="Node/Margin/VBox/ThumbnailHBox/DetailsVBox/ThumbnailPath" method="_on_text_changed"]
+[connection signal="pressed" from="Node/Margin/VBox/ThumbnailHBox/Margin/ThumbnailBG/Selector" to="Node/Margin/VBox/ThumbnailHBox/Margin/ThumbnailBG/Selector" method="_on_pressed"]
