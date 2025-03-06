@@ -65,6 +65,7 @@ size_flags_vertical = 3
 theme = ExtResource("2_mrnp3")
 theme_override_constants/separation = 5
 script = ExtResource("3_uvmyu")
+checking_interval = 17.0
 
 [node name="Mod" parent="VBox/HSplit/Modlist/ModlistVBox" instance=ExtResource("4_vafkj")]
 layout_mode = 2
@@ -125,185 +126,80 @@ placeholder_text = "1.0"
 [node name="HSeparator" type="HSeparator" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 layout_mode = 2
 
-[node name="TagAltHist" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="AltHistInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagAltHist"]
+[node name="AltHistInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagAltHist"]
 layout_mode = 2
 text = "Alternative History"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagBalance" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="BalanceInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagBalance"]
+[node name="BalanceInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagBalance"]
 layout_mode = 2
 text = "Balance"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagEvents" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="EventsInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagEvents"]
+[node name="EventsInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagEvents"]
 layout_mode = 2
 text = "Events"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagFixes" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="FixesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagFixes"]
+[node name="FixesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagFixes"]
 layout_mode = 2
 text = "Fixes"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagGameplay" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="GameplayInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagGameplay"]
+[node name="GameplayInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagGameplay"]
-layout_mode = 2
 text = "Gameplay"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagGraphics" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="GraphicsInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagGraphics"]
+[node name="GraphicsInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 17
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagGraphics"]
-layout_mode = 2
 text = "Graphics"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagHistorical" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="HistoricalInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagHistorical"]
+[node name="HistoricalInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagHistorical"]
 layout_mode = 2
 text = "Historical"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagIdeologies" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="IdeologiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagIdeologies"]
+[node name="IdeologiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Ideologies"
 
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagIdeologies"]
-layout_mode = 2
-text = "Ideology"
-label_settings = SubResource("LabelSettings_kphdy")
-
-[node name="TagMap" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="MapInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagMap"]
+[node name="MapInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagMap"]
 layout_mode = 2
 text = "Map"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagMilitary" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="MilitaryInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagMilitary"]
+[node name="MilitaryInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagMilitary"]
 layout_mode = 2
 text = "Military"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagNatFoc" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="NatFocInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagNatFoc"]
+[node name="NatFocInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagNatFoc"]
 layout_mode = 2
 text = "National Focuses"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagSound" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="SoundInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagSound"]
+[node name="SoundInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagSound"]
 layout_mode = 2
 text = "Sound"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagTechnologies" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="TechnologiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagTechnologies"]
+[node name="TechnologiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Technologies"
 
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagTechnologies"]
-layout_mode = 2
-text = "Technology"
-label_settings = SubResource("LabelSettings_kphdy")
-
-[node name="TagTranslation" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="TranslationInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagTranslation"]
+[node name="TranslationInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagTranslation"]
 layout_mode = 2
 text = "Translation"
-label_settings = SubResource("LabelSettings_kphdy")
 
-[node name="TagUtilities" type="HBoxContainer" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
-layout_mode = 2
-
-[node name="UtilitiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagUtilities"]
+[node name="UtilitiesInput" type="CheckBox" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="Title" type="Label" parent="VBox/HSplit/FiltersVBox/FilterScroll/VBox/TagUtilities"]
-layout_mode = 2
 text = "Utilities"
-label_settings = SubResource("LabelSettings_kphdy")
 
 [connection signal="pressed" from="VBox/TopbarHBox/NewMod" to="VBox/TopbarHBox/NewMod" method="_on_pressed"]

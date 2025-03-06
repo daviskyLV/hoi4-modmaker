@@ -2,7 +2,7 @@ extends VBoxContainer
 class_name Modlist
 
 var _last_check := -1
-var _checking_interval := 25.0
+@export_range(1.0, 60.0, 0.1) var checking_interval := 25.0
 const MOD_ENTRY = preload("res://Components/MainMenu/Mods/mod_entry.tscn")
 signal modlist_updated
 
@@ -40,6 +40,6 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if _last_check + _checking_interval*1000 <= Time.get_ticks_msec():
+func _process(_delta: float) -> void:
+	if _last_check + checking_interval*1000 <= Time.get_ticks_msec():
 		update_modlist()

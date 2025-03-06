@@ -13,7 +13,8 @@ func _show_file_dialog(path: String) -> void:
 	_file_dialog.show_hidden_files = true
 	_file_dialog.set_file_mode(FileDialog.FILE_MODE_OPEN_FILE)
 	_file_dialog.set_access(FileDialog.ACCESS_FILESYSTEM)
-	_file_dialog.add_filter("*.png, *.jpg", "Images")
+	_file_dialog.clear_filters()
+	_file_dialog.add_filter("*.png", "Images")
 	_file_dialog.set_use_native_dialog(true) ## To open as native file explorer
 	_file_dialog.connect("file_selected", _on_file_selected)
 	topmost_parent.add_child.call_deferred(_file_dialog)
