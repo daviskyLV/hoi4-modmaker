@@ -98,43 +98,82 @@ func _on_create_pressed() -> void:
 	if error_displayed:
 		return
 	
-	var base := ""
-	base += 'name="'+%NameInput.text.strip_edges()+'"\n'
-	base += 'version="'+%ModVerInput.text.strip_edges()+'"\n'
-	base += 'supported_version="'+%GameVerInput.text.strip_edges()+'"\n'
+	var descriptor: Array[Parser.ParsedAttribute] = []
+	descriptor.append(
+		Parser.ParsedAttribute.new("name", %NameInput.text.strip_edges(), Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL)
+	)
+	descriptor.append(
+		Parser.ParsedAttribute.new("version", %ModVerInput.text.strip_edges(), Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL)
+	)
+	descriptor.append(
+		Parser.ParsedAttribute.new("supported_version", %GameVerInput.text.strip_edges(), Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL)
+	)
 	# Tags
-	base += 'tags={\n'
+	var tags: Array[Parser.ParsedAttribute] = []
 	if %AltHistInput.button_pressed:
-		base += '\t"Alternative History"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Alternative History", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %BalanceInput.button_pressed:
-		base += '\t"Balance"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Balance", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %EventsInput.button_pressed:
-		base += '\t"Events"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Events", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %FixesInput.button_pressed:
-		base += '\t"Fixes"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Fixes", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %GameplayInput.button_pressed:
-		base += '\t"Gameplay"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Gameplay", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %GraphicsInput.button_pressed:
-		base += '\t"Graphics"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Graphics", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %HistoricalInput.button_pressed:
-		base += '\t"Historical"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Historical", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %IdeologiesInput.button_pressed:
-		base += '\t"Ideologies"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Ideologies", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %MapInput.button_pressed:
-		base += '\t"Map"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Map", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %MilitaryInput.button_pressed:
-		base += '\t"Military"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Military", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %NatFocInput.button_pressed:
-		base += '\t"National Focuses"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("National Focuses", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %SoundInput.button_pressed:
-		base += '\t"Sound"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Sound", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %TechnologiesInput.button_pressed:
-		base += '\t"Technologies"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("TTechnologies", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %TranslationInput.button_pressed:
-		base += '\t"Translation"\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Translation", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
 	if %UtilitiesInput.button_pressed:
-		base += '\t"Utilities"\n'
-	base += '}\n'
+		tags.append(
+			Parser.ParsedAttribute.new("Utilities", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+		)
+	
+	descriptor.append(
+		Parser.ParsedAttribute.new("tags", tags, Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL)
+	)
 	
 	var user_dir := DirAccess.open(Globals.USER_DIR)
 	if user_dir == null:
@@ -150,11 +189,11 @@ func _on_create_pressed() -> void:
 		return
 	
 	# Creating descriptor.mod
-	var descriptor = FileAccess.open(
+	var descriptor_file = FileAccess.open(
 		Globals.USER_DIR+%PathInput.text.strip_edges()+"/descriptor.mod",
 		FileAccess.WRITE
 	)
-	if descriptor == null:
+	if descriptor_file == null:
 		_display_error(FileAccess.get_open_error())
 		return
 	
@@ -162,11 +201,18 @@ func _on_create_pressed() -> void:
 	var thumb: Image = null
 	if %Thumbnail.texture != null:
 		thumb = %Thumbnail.texture.get_image()
-		
+	
+	var descriptor_str := ""
+	for attr: Parser.ParsedAttribute in descriptor:
+		descriptor_str += attr.to_string() + "\n"
+			
 	if thumb == null:
-		descriptor.store_string(base)
+		descriptor_file.store_string(descriptor_str)
 	else:
-		descriptor.store_string(base+'picture="thumbnail.png"\n')
+		var desc_c := descriptor_str
+		desc_c += \
+			Parser.ParsedAttribute.new("picture", "thumbnail.png", Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL).to_string() + "\n"
+		descriptor_file.store_string(desc_c)
 		DirAccess.copy_absolute(
 			%ThumbnailPath.text,
 			Globals.USER_DIR+%PathInput.text.strip_edges()+"/thumbnail.png"
@@ -175,14 +221,18 @@ func _on_create_pressed() -> void:
 	# Main mod descriptor file
 	var mod_desc_filename: String = %NameInput.text.strip_edges()+".mod"
 	mod_desc_filename = mod_desc_filename.validate_filename()
-	var mod_desc = FileAccess.open(
+	var mod_desc_file = FileAccess.open(
 		Globals.USER_DIR+"mod/"+mod_desc_filename,
 		FileAccess.WRITE
 	)
-	if mod_desc == null:
+	if mod_desc_file == null:
 		_display_error(FileAccess.get_open_error())
 		return
-	mod_desc.store_string(base+'path="'+Globals.USER_DIR+%PathInput.text.strip_edges()+'"\n')
+	
+	descriptor_str += \
+			Parser.ParsedAttribute.new("path", Globals.USER_DIR+%PathInput.text.strip_edges(),
+			Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL).to_string() + "\n"
+	mod_desc_file.store_string(descriptor_str)
 	
 	# Closing
 	hide()
