@@ -262,3 +262,21 @@ class ScriptParsing:
 func parse_script(code: String) -> Array[ParsedAttribute]:
 	var parsed := ScriptParsing.new(code)
 	return parsed.parsed_data
+
+## Filter an attribute list by attribute name.
+## [param arr] - the [ParsedAttribute] array to search in.
+## [param target] - the attribute to search.
+## [param limit] - limit the amount of attributes returned, -1 for unlimited
+func search_attribute(
+	arr: Array[ParsedAttribute],
+	target: String,
+	limit: int = -1
+) -> Array[ParsedAttribute]:
+	var found: Array[ParsedAttribute] = []
+	for attr: ParsedAttribute in arr:
+		if attr.attribute_name == target:
+			found.append(attr)
+			if limit > 0 and found.size() >= limit:
+				return found
+	
+	return found

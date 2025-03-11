@@ -15,63 +15,6 @@ func _init() -> void:
 		USER_DIR = "~/.local/share/Paradox Interactive/Hearts of Iron IV/"
 		GAME_DIR = "~/"
 
-## Parse mod descriptor's contents and return a dictionary of keys with values as array
-## Returned example: {name: ["my mod"], tags: ["hello", "world!"]}
-func parse_mod_descriptor(content: String) -> Dictionary:
-	var parsed: Dictionary = {}
-	var lines := content.split("\n")
-	
-	var curkey := ""
-	var curkey_opening := ""
-	for line in lines:
-		continue
-		var stripped_line = line.strip_edges()
-		if !curkey_opening.is_empty():
-			# The current key already has an opening
-			if (curkey_opening == '"' and stripped_line == '"') or \
-				(curkey_opening == "{" and stripped_line == "}"):
-				# Current key is closed
-				curkey_opening = ""
-				curkey = ""
-				continue
-			
-			# Adds a new value to the key
-			parsed[curkey].append(stripped_line.trim_prefix('"').trim_suffix('"'))
-			continue
-			
-		# New line without opening, assuming new key
-		var assign_start := stripped_line.find('="') # Finding assignment
-		if assign_start == -1:
-			assign_start = stripped_line.find("={")
-		if assign_start == 0:
-			printerr("Mod descriptor value found without key! Line:|"+line+"|")
-			continue
-		elif assign_start == -1:
-			printerr("Mod descriptor has no valid definition for value! Line:|"+line+"|")
-			continue
-		
-		curkey = stripped_line.substr(0,assign_start)
-		if !parsed.has(curkey):
-			parsed[curkey] = PackedStringArray([])
-			
-		var opening_char = stripped_line.substr(assign_start+1,1)
-		if stripped_line.length() == assign_start+2:
-			# Key definition only opens, doesn't close
-			curkey_opening = opening_char
-			continue
-			
-		var val = stripped_line.substr(assign_start+2)
-		if stripped_line.ends_with('"') and opening_char == '"':
-			val = val.trim_suffix('"')
-		elif stripped_line.ends_with("}") and opening_char == "{":
-			val = val.trim_suffix('}')
-		else:
-			curkey_opening = stripped_line.substr(assign_start+1)
-		
-		parsed[curkey].append(val)
-	
-	return parsed
-
 ## Validate inputted path and convert it automatically to Unix style
 func validate_path(path: String, simplify: bool = true) -> String:
 	# Removing invalid characters
