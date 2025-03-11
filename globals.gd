@@ -24,6 +24,7 @@ func parse_mod_descriptor(content: String) -> Dictionary:
 	var curkey := ""
 	var curkey_opening := ""
 	for line in lines:
+		continue
 		var stripped_line = line.strip_edges()
 		if !curkey_opening.is_empty():
 			# The current key already has an opening
