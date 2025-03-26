@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 Globals="*res://Singletons/globals.gd"
 Parser="*res://Singletons/parser.gd"
-ModEditor="*res://Singletons/mod_editor.gd"
 
 [display]
 
