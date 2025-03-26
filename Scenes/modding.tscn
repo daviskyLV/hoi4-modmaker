@@ -1,6 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://od27d30xhqia"]
+[gd_scene load_steps=8 format=3 uid="uid://od27d30xhqia"]
 
 [ext_resource type="Theme" uid="uid://cq5fse5ndgcg2" path="res://Themes/GodotTheme.tres" id="1_tjcmn"]
+[ext_resource type="Theme" uid="uid://bhe1yqxqemdjn" path="res://Themes/ButtonRed.tres" id="2_od6tl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cvjnn"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_vurqn"]
+font_size = 15
+font_color = Color(1, 0.823529, 0.231373, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0umnd"]
+font_size = 15
+font_color = Color(1, 0.823529, 0.231373, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_od6tl"]
+font_size = 20
+font_color = Color(0.443137, 0.737255, 0.988235, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tj6oq"]
 
 [node name="Modding" type="Control"]
 layout_mode = 3
@@ -9,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_tjcmn")
 
 [node name="BackgroundColor" type="ColorRect" parent="."]
 layout_mode = 1
@@ -31,16 +50,52 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TabContainer" type="TabContainer" parent="Margin"]
-clip_contents = true
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Topbar" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ModTitle" type="Label" parent="Margin/VBox/Topbar"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Where game's user's configuration is stored"
+mouse_filter = 1
+text = "Best mod ever"
+label_settings = SubResource("LabelSettings_cvjnn")
+
+[node name="SaveAll" type="HBoxContainer" parent="Margin/VBox/Topbar"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 2
+
+[node name="UnsavedWarning" type="Label" parent="Margin/VBox/Topbar/SaveAll"]
+layout_mode = 2
+text = "(Unsaved changes!)"
+label_settings = SubResource("LabelSettings_vurqn")
+
+[node name="SaveAll" type="Button" parent="Margin/VBox/Topbar/SaveAll"]
 layout_mode = 2
 theme = ExtResource("1_tjcmn")
+theme_override_font_sizes/font_size = 18
+text = "Save All"
+
+[node name="ExitModding" type="Button" parent="Margin/VBox/Topbar"]
+layout_mode = 2
+theme = ExtResource("2_od6tl")
+theme_override_font_sizes/font_size = 18
+text = "Exit"
+
+[node name="TabContainer" type="TabContainer" parent="Margin/VBox"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/side_margin = 0
-current_tab = 1
+current_tab = 0
 drag_to_rearrange_enabled = true
 
-[node name="Basic" type="MarginContainer" parent="Margin/TabContainer"]
-visible = false
+[node name="Basic" type="MarginContainer" parent="Margin/VBox/TabContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -48,10 +103,252 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 metadata/_tab_index = 0
 
-[node name="Music" type="MarginContainer" parent="Margin/TabContainer"]
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox/TabContainer/Basic"]
+layout_mode = 2
+theme_override_constants/separation = -18
+
+[node name="Topbar" type="HBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 2
+
+[node name="UnsavedWarning" type="Label" parent="Margin/VBox/TabContainer/Basic/VBox/Topbar"]
+layout_mode = 2
+text = "(Unsaved changes!)"
+label_settings = SubResource("LabelSettings_0umnd")
+
+[node name="Save" type="Button" parent="Margin/VBox/TabContainer/Basic/VBox/Topbar"]
+layout_mode = 2
+text = "Save"
+
+[node name="List" type="ScrollContainer" parent="Margin/VBox/TabContainer/Basic/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+
+[node name="Modmaker" type="VBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Modmaker"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "HOI4 Modmaker"
+label_settings = SubResource("LabelSettings_od6tl")
+text_direction = 1
+
+[node name="ModfileId" type="HBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Modmaker"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Modmaker/ModfileId"]
+layout_mode = 2
+tooltip_text = "Where game's user's configuration is stored"
+mouse_filter = 1
+text = "Mod file Id:"
+label_settings = SubResource("LabelSettings_tj6oq")
+
+[node name="ModfileIdInput" type="LineEdit" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Modmaker/ModfileId"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "UNIQUE, short and memorable text Id that gets attached to filenames to avoid overwriting files"
+text = "modmaker"
+placeholder_text = "Short, memorable text Id"
+max_length = 20
+editable = false
+emoji_menu_enabled = false
+clear_button_enabled = true
+
+[node name="EnableButton" type="HBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Modmaker"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="EnableModmaker" type="Button" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Modmaker/EnableButton"]
+layout_mode = 2
+tooltip_text = "Enable editing this mod via HOI4 Modmaker"
+text = "Enable"
+
+[node name="Core" type="VBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Core settings"
+label_settings = SubResource("LabelSettings_od6tl")
+text_direction = 1
+
+[node name="TitleHBox" type="HBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core/TitleHBox"]
+layout_mode = 2
+tooltip_text = "Where game's user's configuration is stored"
+mouse_filter = 1
+text = "Mod title:"
+label_settings = SubResource("LabelSettings_tj6oq")
+
+[node name="TitleInput" type="LineEdit" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core/TitleHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_length = 255
+clear_button_enabled = true
+
+[node name="ModVerHBox" type="HBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core/ModVerHBox"]
+layout_mode = 2
+tooltip_text = "Where game's user's configuration is stored"
+mouse_filter = 1
+text = "Mod version:"
+label_settings = SubResource("LabelSettings_tj6oq")
+
+[node name="ModVerInput" type="LineEdit" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core/ModVerHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_length = 255
+emoji_menu_enabled = false
+clear_button_enabled = true
+
+[node name="GameVerHBox" type="HBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core/GameVerHBox"]
+layout_mode = 2
+tooltip_text = "Where game's user's configuration is stored"
+mouse_filter = 1
+text = "Game version:"
+label_settings = SubResource("LabelSettings_tj6oq")
+
+[node name="ModVerInput" type="LineEdit" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Core/GameVerHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_length = 255
+emoji_menu_enabled = false
+clear_button_enabled = true
+
+[node name="Tags" type="VBoxContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Tags"
+label_settings = SubResource("LabelSettings_od6tl")
+text_direction = 1
+
+[node name="Grid" type="GridContainer" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="AltHistInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Alternative History"
+
+[node name="BalanceInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Balance"
+
+[node name="EventsInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Events"
+
+[node name="FixesInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Fixes"
+
+[node name="GameplayInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Gameplay"
+
+[node name="GraphicsInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "Graphics"
+
+[node name="HistoricalInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Historical"
+
+[node name="IdeologiesInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ideologies"
+
+[node name="MapInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_constants/check_v_offset = 1
+text = "Map"
+
+[node name="MilitaryInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Military"
+
+[node name="NatFocInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "National Focuses"
+
+[node name="SoundInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sound"
+
+[node name="TechnologiesInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Technologies"
+
+[node name="TranslationInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Translation"
+
+[node name="UtilitiesInput" type="CheckBox" parent="Margin/VBox/TabContainer/Basic/VBox/List/VBox/Tags/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Utilities"
+
+[node name="Character Traits" type="MarginContainer" parent="Margin/VBox/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 metadata/_tab_index = 1
+
+[node name="Music" type="MarginContainer" parent="Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_tab_index = 2

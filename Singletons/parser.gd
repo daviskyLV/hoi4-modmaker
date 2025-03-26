@@ -5,6 +5,8 @@ extends Node
 class ParsedAttribute:
 	## Logical operator linking attribute to it's value, NONE if only name is specified
 	enum OPERATOR_TYPE {EQUAL, GREATER_THAN, LESS_THAN, NONE}
+	## How the attribute should be "glued together" with the previous attribute.
+	enum LINE_TYPE {SAME_LINE, NEWLINE, DOUBLE_NEWLINE}
 	
 	## Logical operator linking attribute to it's value, NONE if only name is specified
 	var operator: OPERATOR_TYPE
@@ -13,15 +15,25 @@ class ParsedAttribute:
 	## Argument that is linked to attribute via a logical operator.
 	## Can be of type [String] or [ParsedAttribute] array for nesting
 	var argument: Variant
+	## How the attribute should be "glued together" with the previous attribute when converting to string.
+	var line_glue: LINE_TYPE
 
-	func _init(attribute: String, arg: Variant, op: OPERATOR_TYPE) -> void:
+	func _init(attribute: String, arg: Variant, op: OPERATOR_TYPE, glue: LINE_TYPE) -> void:
 		operator = op
 		attribute_name = attribute
 		argument = arg
+		line_glue = glue
 	
 	func _to_string() -> String:
+		var beginning: String = ""
+		if line_glue == LINE_TYPE.SAME_LINE:
+			beginning = " "
+		elif line_glue == LINE_TYPE.NEWLINE:
+			beginning = "\n"
+		elif line_glue == LINE_TYPE.DOUBLE_NEWLINE:
+			beginning = "\n\n"
 		if attribute_name.begins_with("#"):
-			return attribute_name
+			return beginning + attribute_name
 			
 		var an := attribute_name
 		if an.contains(" ") or an.contains("\t") or an.contains('"') or \
@@ -29,7 +41,7 @@ class ParsedAttribute:
 			an = '"' + attribute_name + '"'
 		
 		if operator == OPERATOR_TYPE.NONE:
-			return an
+			return beginning + an
 		
 		var attr_s := an
 		if operator == OPERATOR_TYPE.EQUAL:
@@ -45,18 +57,18 @@ class ParsedAttribute:
 			argn.contains("{") or argn.contains("}") or argn.contains("\\"):
 				argn = '"' + argument + '"'
 			
-			return attr_s + argn
+			return beginning + attr_s + argn
 			
 		# ParsedAttribute type
 		attr_s += "{\n"
 		# Listing argument list
 		var ina_s := ""
 		for arg: ParsedAttribute in argument:
-			ina_s += arg.to_string() + "\n"
+			ina_s += arg.to_string()
 		ina_s = ina_s.indent("\t")
 		
-		attr_s += ina_s + "}\n"
-		return attr_s
+		attr_s += ina_s + "}"
+		return beginning + attr_s
 
 ## Used when parsing HOI4 scripts
 class ScriptParsing:
@@ -66,6 +78,14 @@ class ScriptParsing:
 	var _current_index: int
 	## Parsed data represented as attribute array
 	var parsed_data: Array[ParsedAttribute]
+	
+	## Convert previous attribute terminator to attribute line type
+	func convert_terminator(terminator: String) -> ParsedAttribute.LINE_TYPE:
+		if terminator.contains("\n\n"):
+			return ParsedAttribute.LINE_TYPE.DOUBLE_NEWLINE
+		elif terminator.contains("\n"):
+			return ParsedAttribute.LINE_TYPE.NEWLINE
+		return ParsedAttribute.LINE_TYPE.SAME_LINE
 	
 	## Parse a block of code from a HOI4 script. Current character should be after block opening.
 	## Returns an array of parsed attributes
@@ -83,6 +103,7 @@ class ScriptParsing:
 		var str_open: bool = false
 		## Whether attribute has been defined and we are parsing operator/argument
 		var attrib_defined: bool = false
+		var prev_terminator: String = ""
 		
 		## Flag when set to true resets attribute definition on next iteration
 		var reset_attrib: bool = false
@@ -103,6 +124,7 @@ class ScriptParsing:
 			# Checking if current character is a whitespace and attribute is undefined
 			if cur_char.strip_edges().is_empty() and cur_attrib.is_empty():
 				# attribute not in progress, skipping whitespace
+				prev_terminator += cur_char
 				continue
 			
 			# checking if it's a continuation of a comment
@@ -110,7 +132,11 @@ class ScriptParsing:
 				# currently parsing a comment
 				if cur_char == "\n":
 					# newline, ending comment
-					parsed.append(ParsedAttribute.new(cur_attrib, "", ParsedAttribute.OPERATOR_TYPE.NONE))
+					parsed.append(ParsedAttribute.new(
+						cur_attrib, "", ParsedAttribute.OPERATOR_TYPE.NONE,
+						convert_terminator(prev_terminator)
+					))
+					prev_terminator = "\n"
 					reset_attrib = true
 				else:
 					# comment already defined, adding content
@@ -137,12 +163,18 @@ class ScriptParsing:
 						str_open = false
 					else:
 						# Closing argument string and finishing the parsed attribute
-						parsed.append(ParsedAttribute.new(cur_attrib, cur_arg, cur_op))
+						parsed.append(ParsedAttribute.new(
+							cur_attrib, cur_arg, cur_op, convert_terminator(prev_terminator)
+						))
+						prev_terminator = ""
 						reset_attrib = true
 				else:
 					if attrib_defined and cur_op == ParsedAttribute.OPERATOR_TYPE.NONE:
 						# Inserting previous attribute name as key:value pair
-						parsed.append(ParsedAttribute.new(cur_attrib, cur_arg, cur_op))
+						parsed.append(ParsedAttribute.new(
+							cur_attrib, cur_arg, cur_op, convert_terminator(prev_terminator)
+						))
+						prev_terminator = ""
 						attrib_defined = false
 						cur_attrib = ""
 						cur_arg = ""
@@ -155,7 +187,10 @@ class ScriptParsing:
 			if cur_char == '#':
 				if not cur_attrib.is_empty():
 					# attribute:argument combo previously defined, ending it
-					parsed.append(ParsedAttribute.new(cur_attrib, cur_arg, cur_op))
+					parsed.append(ParsedAttribute.new(
+						cur_attrib, cur_arg, cur_op, convert_terminator(prev_terminator)
+					))
+					prev_terminator = ""
 					reset_attrib = true
 				
 				# Starting a new comment attribute
@@ -172,7 +207,10 @@ class ScriptParsing:
 						str_open = false
 					else:
 						# Closing argument string and finishing the parsed attribute
-						parsed.append(ParsedAttribute.new(cur_attrib, cur_arg, cur_op))
+						parsed.append(ParsedAttribute.new(
+							cur_attrib, cur_arg, cur_op, convert_terminator(prev_terminator)
+						))
+						prev_terminator = "\n"
 						reset_attrib = true
 					continue
 				
@@ -205,7 +243,10 @@ class ScriptParsing:
 				else:
 					if cur_op != ParsedAttribute.OPERATOR_TYPE.NONE and not cur_arg.is_empty():
 						# Operator defined and argument set, appending argument to list
-						parsed.append(ParsedAttribute.new(cur_attrib, cur_arg, cur_op))
+						parsed.append(ParsedAttribute.new(
+							cur_attrib, cur_arg, cur_op, convert_terminator(prev_terminator)
+						))
+						prev_terminator = cur_char
 						reset_attrib = true
 					else:
 						# Operator not defined yet, ignore for now
@@ -219,7 +260,11 @@ class ScriptParsing:
 			elif cur_char == "{":
 				# parsing inner block
 				var inner_block := parse_block()
-				parsed.append(ParsedAttribute.new(cur_attrib, inner_block, cur_op))
+				# Appending inner block
+				parsed.append(ParsedAttribute.new(
+					cur_attrib, inner_block, cur_op, convert_terminator(prev_terminator)
+				))
+				prev_terminator = ""
 				reset_attrib = true
 				continue
 			
@@ -240,7 +285,10 @@ class ScriptParsing:
 		
 		# Adding leftover definitions, if they exist
 		if not cur_attrib.is_empty():
-			parsed.append(ParsedAttribute.new(cur_attrib, cur_arg, cur_op))
+			parsed.append(ParsedAttribute.new(
+				cur_attrib, cur_arg, cur_op, convert_terminator(prev_terminator)
+			))
+			prev_terminator = ""
 		
 		return parsed
 	

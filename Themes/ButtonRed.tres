@@ -1,9 +1,9 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dnjvhcklikkdq"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bhe1yqxqemdjn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1708g"]
 content_margin_left = 10.0
 content_margin_right = 10.0
-bg_color = Color(0.129412, 0.14902, 0.180392, 1)
+bg_color = Color(0.188235, 0.14902, 0.129412, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -14,7 +14,16 @@ corner_radius_bottom_left = 5
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76o7y"]
 content_margin_left = 10.0
 content_margin_right = 10.0
-bg_color = Color(0.3078, 0.44327, 0.57, 1)
+bg_color = Color(0.882353, 0.14902, 0.247059, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0r5wd"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(1, 0.117647, 0.156863, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -23,7 +32,7 @@ corner_radius_bottom_left = 5
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wcnw"]
 content_margin_left = 10.0
 content_margin_right = 10.0
-bg_color = Color(0.215686, 0.309804, 0.4, 1)
+bg_color = Color(0.647059, 0.14902, 0.247059, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -32,7 +41,7 @@ corner_radius_bottom_left = 5
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hlkee"]
 content_margin_left = 10.0
 content_margin_right = 10.0
-bg_color = Color(0.278431, 0.54902, 0.74902, 1)
+bg_color = Color(0.882353, 0.14902, 0.176471, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -43,5 +52,6 @@ Button/font_sizes/font_size = 20
 Button/styles/disabled = SubResource("StyleBoxFlat_1708g")
 Button/styles/focus = SubResource("StyleBoxEmpty_owl15")
 Button/styles/hover = SubResource("StyleBoxFlat_76o7y")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_0r5wd")
 Button/styles/normal = SubResource("StyleBoxFlat_5wcnw")
 Button/styles/pressed = SubResource("StyleBoxFlat_hlkee")

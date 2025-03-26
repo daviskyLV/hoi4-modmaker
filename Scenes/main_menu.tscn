@@ -38,13 +38,13 @@ clip_contents = true
 layout_mode = 2
 theme = ExtResource("1_atvhd")
 theme_override_constants/side_margin = 0
-current_tab = 0
+current_tab = 1
 
 [node name="Mods" parent="Margin/TabContainer" instance=ExtResource("2_38m8g")]
+visible = false
 layout_mode = 2
 
 [node name="Settings" parent="Margin/TabContainer" instance=ExtResource("3_vfdc6")]
-visible = false
 layout_mode = 2
 
 [node name="About" type="MarginContainer" parent="Margin/TabContainer"]

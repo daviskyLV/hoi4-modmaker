@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c1bhljvqarkg5"]
+[gd_scene load_steps=13 format=3 uid="uid://c1bhljvqarkg5"]
 
 [ext_resource type="Theme" uid="uid://cq5fse5ndgcg2" path="res://Themes/GodotTheme.tres" id="1_lmln7"]
 [ext_resource type="Script" uid="uid://btxvmsdu4qxso" path="res://Scenes/create_mod.gd" id="2_ogke3"]
 [ext_resource type="Script" uid="uid://b6q2bx2dt5bvq" path="res://Components/CreateMod/path_input.gd" id="3_l1gkl"]
 [ext_resource type="Script" uid="uid://dsov2vd0qjmpg" path="res://Components/Utilities/filepath_input.gd" id="4_8gn4s"]
 [ext_resource type="Theme" uid="uid://ps3t0pelfm8k" path="res://Themes/ButtonInvisible.tres" id="5_3yykg"]
-[ext_resource type="Theme" uid="uid://dnjvhcklikkdq" path="res://Themes/ButtonBlue.tres" id="5_40g8y"]
 [ext_resource type="Script" uid="uid://d176xwba5suey" path="res://Components/CreateMod/thumbnail_selector.gd" id="5_j7v3b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_36xm1"]
@@ -332,7 +331,6 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_r44bj")
 [node name="Create" type="Button" parent="Node/Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("5_40g8y")
 disabled = true
 text = "Create Mod"
 
