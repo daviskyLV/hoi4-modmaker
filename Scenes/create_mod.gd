@@ -75,7 +75,7 @@ func _on_close_requested() -> void:
 
 
 func _on_thumbnail_path_text_changed(new_text: String) -> void:
-	var validated_path = Globals.validate_path(new_text)
+	var validated_path = Validator.validate_path(new_text)
 	# Setting thumbnail image
 	var thumb_image := Image.load_from_file(validated_path)
 	var thumb_texture = ImageTexture.create_from_image(thumb_image)
@@ -98,81 +98,138 @@ func _on_create_pressed() -> void:
 	if error_displayed:
 		return
 	
-	var descriptor: Array[Parser.ParsedAttribute] = []
+	var descriptor: Array[ScriptParser.ParsedAttribute] = []
 	descriptor.append(
-		Parser.ParsedAttribute.new("name", %NameInput.text.strip_edges(), Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL)
+		ScriptParser.ParsedAttribute.new(
+			"name", %NameInput.text.strip_edges(), ScriptParser.ATTRIBUTE_OPERATOR.EQUAL,
+			ScriptParser.ATTRIBUTE_LINE.SAME_LINE
+		)
 	)
 	descriptor.append(
-		Parser.ParsedAttribute.new("version", %ModVerInput.text.strip_edges(), Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL)
+		ScriptParser.ParsedAttribute.new(
+			"version", %ModVerInput.text.strip_edges(), ScriptParser.ATTRIBUTE_OPERATOR.EQUAL,
+			ScriptParser.ATTRIBUTE_LINE.NEWLINE
+		)
 	)
 	descriptor.append(
-		Parser.ParsedAttribute.new("supported_version", %GameVerInput.text.strip_edges(), Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL)
+		ScriptParser.ParsedAttribute.new(
+			"supported_version", %GameVerInput.text.strip_edges(), ScriptParser.ATTRIBUTE_OPERATOR.EQUAL,
+			ScriptParser.ATTRIBUTE_LINE.NEWLINE
+		)
 	)
 	# Tags
-	var tags: Array[Parser.ParsedAttribute] = []
+	var tags: Array[ScriptParser.ParsedAttribute] = []
 	if %AltHistInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Alternative History", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Alternative History", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %BalanceInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Balance", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Balance", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %EventsInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Events", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Events", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %FixesInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Fixes", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Fixes", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %GameplayInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Gameplay", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Gameplay", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %GraphicsInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Graphics", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Graphics", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %HistoricalInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Historical", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Historical", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %IdeologiesInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Ideologies", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Ideologies", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %MapInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Map", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Map", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %MilitaryInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Military", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Military", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %NatFocInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("National Focuses", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"National Focuses", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %SoundInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Sound", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Sound", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %TechnologiesInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("TTechnologies", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Technologies", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %TranslationInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Translation", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Translation", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	if %UtilitiesInput.button_pressed:
 		tags.append(
-			Parser.ParsedAttribute.new("Utilities", "", Parser.ParsedAttribute.OPERATOR_TYPE.NONE)
+			ScriptParser.ParsedAttribute.new(
+				"Utilities", "", ScriptParser.ATTRIBUTE_OPERATOR.NONE,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			)
 		)
 	
 	descriptor.append(
-		Parser.ParsedAttribute.new("tags", tags, Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL)
+		ScriptParser.ParsedAttribute.new(
+			"tags", tags, ScriptParser.ATTRIBUTE_OPERATOR.EQUAL,
+			ScriptParser.ATTRIBUTE_LINE.NEWLINE
+		)
 	)
 	
 	var user_dir := DirAccess.open(Globals.USER_DIR)
@@ -203,7 +260,7 @@ func _on_create_pressed() -> void:
 		thumb = %Thumbnail.texture.get_image()
 	
 	var descriptor_str := ""
-	for attr: Parser.ParsedAttribute in descriptor:
+	for attr: ScriptParser.ParsedAttribute in descriptor:
 		descriptor_str += attr.to_string() + "\n"
 			
 	if thumb == null:
@@ -211,7 +268,10 @@ func _on_create_pressed() -> void:
 	else:
 		var desc_c := descriptor_str
 		desc_c += \
-			Parser.ParsedAttribute.new("picture", "thumbnail.png", Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL).to_string() + "\n"
+			ScriptParser.ParsedAttribute.new(
+				"picture", "thumbnail.png", ScriptParser.ATTRIBUTE_OPERATOR.EQUAL,
+				ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			).to_string() + "\n"
 		descriptor_file.store_string(desc_c)
 		DirAccess.copy_absolute(
 			%ThumbnailPath.text,
@@ -230,8 +290,10 @@ func _on_create_pressed() -> void:
 		return
 	
 	descriptor_str += \
-			Parser.ParsedAttribute.new("path", Globals.USER_DIR+%PathInput.text.strip_edges(),
-			Parser.ParsedAttribute.OPERATOR_TYPE.EQUAL).to_string() + "\n"
+			ScriptParser.ParsedAttribute.new(
+				"path", Globals.USER_DIR+%PathInput.text.strip_edges(),
+				ScriptParser.ATTRIBUTE_OPERATOR.EQUAL, ScriptParser.ATTRIBUTE_LINE.NEWLINE
+			).to_string() + "\n"
 	mod_desc_file.store_string(descriptor_str)
 	
 	# Closing

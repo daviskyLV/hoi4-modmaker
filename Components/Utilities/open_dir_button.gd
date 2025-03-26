@@ -36,8 +36,8 @@ func _on_button_pressed() -> void:
 
 func _on_dir_selected(path):
 	if label_folder != null:
-		label_folder.text = Globals.validate_path(path+"/")
+		label_folder.text = Validator.validate_path(path+"/")
 		_file_dialog.queue_free()
 	if line_edit_folder != null:
-		line_edit_folder.text = Globals.validate_path(path+"/")
+		line_edit_folder.text = Validator.validate_path(path+"/")
 		_file_dialog.queue_free()

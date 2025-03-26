@@ -4,9 +4,9 @@ class_name ModlistEntry
 const TAG = preload("res://Components/MainMenu/Mods/mod_entry_tag.tscn")
 
 ## Base mod descriptor in user's directory
-var base_desc: Array[Parser.ParsedAttribute] = []
+var base_desc: Array[ScriptParser.ParsedAttribute] = []
 ## Mod descriptor in the actual mod's folder
-var mod_desc: Array[Parser.ParsedAttribute] = []
+var mod_desc: Array[ScriptParser.ParsedAttribute] = []
 
 # Updates mod info based on the mod descriptor file path
 func update_mod_descriptor(mod_descriptor_path: String) -> void:
@@ -22,8 +22,8 @@ func update_mod_descriptor(mod_descriptor_path: String) -> void:
 	base_file.close()
 	
 	# Parsing base descriptor file and extracting path variable from it
-	base_desc = Parser.parse_script(base_content)
-	var path_attrs := Parser.search_attribute(base_desc, "path", 1)
+	base_desc = ScriptParser.parse_script(base_content)
+	var path_attrs := ScriptParser.search_attribute(base_desc, "path", 1)
 	if path_attrs.size() > 0:
 		%Path.text = path_attrs[0].argument
 		
@@ -39,14 +39,14 @@ func update_mod_descriptor(mod_descriptor_path: String) -> void:
 	var mod_desc_content := mod_descriptor.get_as_text(true)
 	mod_descriptor.close()
 	
-	mod_desc = Parser.parse_script(mod_desc_content)
-	var version_attrs := Parser.search_attribute(mod_desc, "version", 1)
+	mod_desc = ScriptParser.parse_script(mod_desc_content)
+	var version_attrs := ScriptParser.search_attribute(mod_desc, "version", 1)
 	if version_attrs.size() > 0:
 		%ModVer.text = "Mod version: "+version_attrs[0].argument
-	var game_ver_attrs := Parser.search_attribute(mod_desc, "supported_version", 1)
+	var game_ver_attrs := ScriptParser.search_attribute(mod_desc, "supported_version", 1)
 	if game_ver_attrs.size() > 0:
 		%GameVer.text = "Game version: "+game_ver_attrs[0].argument
-	var name_attrs := Parser.search_attribute(mod_desc, "name", 1)
+	var name_attrs := ScriptParser.search_attribute(mod_desc, "name", 1)
 	if name_attrs.size() > 0:
 		%Title.text = name_attrs[0].argument
 		
@@ -55,10 +55,10 @@ func update_mod_descriptor(mod_descriptor_path: String) -> void:
 	for n in tags:
 		n.free()
 	
-	var tags_attrs := Parser.search_attribute(mod_desc, "tags", 1)
+	var tags_attrs := ScriptParser.search_attribute(mod_desc, "tags", 1)
 	if tags_attrs.size() > 0:
 		# Repopulating tags
-		for t: Parser.ParsedAttribute in tags_attrs[0].argument:
+		for t: ScriptParser.ParsedAttribute in tags_attrs[0].argument:
 			var tag_instance = TAG.instantiate()
 			tag_instance.text = t.attribute_name
 			%TagsVBox.add_child(tag_instance)
@@ -68,7 +68,7 @@ func update_mod_descriptor(mod_descriptor_path: String) -> void:
 		return
 	
 	var thumbnail_path = path_attrs[0].argument+"/"
-	var picture_attrs := Parser.search_attribute(mod_desc, "picture", 1)
+	var picture_attrs := ScriptParser.search_attribute(mod_desc, "picture", 1)
 	if picture_attrs.size() > 0:
 		thumbnail_path += picture_attrs[0].argument
 	

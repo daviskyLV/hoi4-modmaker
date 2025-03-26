@@ -21,7 +21,7 @@ func _show_file_dialog(path: String) -> void:
 	_file_dialog.visible = true
 
 func _on_file_selected(path: String) -> void:
-	var validated_path = Globals.validate_path(path)
+	var validated_path = Validator.validate_path(path)
 	path_input.text = validated_path
 	# Setting thumbnail image
 	var thumb_image := Image.load_from_file(validated_path)

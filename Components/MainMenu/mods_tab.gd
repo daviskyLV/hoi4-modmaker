@@ -1,27 +1,27 @@
 extends MarginContainer
 class_name ModsTab
 
-func _is_mod_visible(mod_info: Array[Parser.ParsedAttribute]) -> bool:
-	var mname_attrs := Parser.search_attribute(mod_info, "name", 1)
+func _is_mod_visible(mod_info: Array[ScriptParser.ParsedAttribute]) -> bool:
+	var mname_attrs := ScriptParser.search_attribute(mod_info, "name", 1)
 	if (mname_attrs.size() > 0 and !%Searchbox.text.is_empty() and
 	!mname_attrs[0].argument.containsn(%Searchbox.text)):
 		return false
 	
 	### TODO: Replace game/mod version searches to support *!
-	var gver_attrs := Parser.search_attribute(mod_info, "supported_version", 1)
+	var gver_attrs := ScriptParser.search_attribute(mod_info, "supported_version", 1)
 	if (gver_attrs.size() > 0 and !%GameVerInput.text.is_empty() and
 	!gver_attrs[0].argument.containsn(%GameVerInput.text)):
 		return false
 	
-	var mver_attrs := Parser.search_attribute(mod_info, "version", 1)
+	var mver_attrs := ScriptParser.search_attribute(mod_info, "version", 1)
 	if (mver_attrs.size() > 0 and !%ModVerInput.text.is_empty() and
 	!mver_attrs[0].argument.containsn(%ModVerInput.text)):
 		return false
 	
 	var tag_dict: Dictionary[String, bool] = {}
-	var tags_attrs := Parser.search_attribute(mod_info, "tags", 1)
+	var tags_attrs := ScriptParser.search_attribute(mod_info, "tags", 1)
 	if tags_attrs.size() > 0:
-		for t: Parser.ParsedAttribute in tags_attrs[0].argument:
+		for t: ScriptParser.ParsedAttribute in tags_attrs[0].argument:
 			tag_dict[t.attribute_name] = true
 	
 	# Tags

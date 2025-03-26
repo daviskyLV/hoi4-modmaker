@@ -18,7 +18,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://Singletons/globals.gd"
-Parser="*res://Singletons/parser.gd"
+ScriptParser="*res://Singletons/script_parser.gd"
+Validator="*res://Singletons/validator.gd"
+SemanticVersion="*res://Singletons/semantic_version.gd"
 
 [display]
 

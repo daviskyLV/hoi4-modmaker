@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func _on_text_changed(new_text: String) -> void:
-	var unix_style = Globals.validate_path(ProjectSettings.globalize_path(new_text))
+	var unix_style = Validator.validate_path(ProjectSettings.globalize_path(new_text))
 	
 	if new_text != unix_style:
 		var old_pos = caret_column
